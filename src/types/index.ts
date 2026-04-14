@@ -66,3 +66,18 @@ export interface BudgetCreate {
   month: number
   year: number
 }
+export interface SavingsGoal {
+  id: number
+  name: string
+  target_amount: number
+  icon: string
+  current_amount: number
+  percentage: number
+  remaining: number
+}
+
+export interface SavingsGoalCreate {
+  name: string
+  target_amount: number
+  icon: string
+}

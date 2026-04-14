@@ -9,6 +9,7 @@ import Transactions from './pages/Transactions'
 import Categories from './pages/Categories'
 import Stats from './pages/Stats'
 import Budgets from './pages/Budgets'
+import SavingsGoals from './pages/SavingsGoals'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -42,6 +43,11 @@ function AnimatedRoutes() {
         <Route path="/budgets" element={
           <ProtectedRoute>
             <PageTransition><Budgets /></PageTransition>
+          </ProtectedRoute>
+        } />
+        <Route path="/savings" element={
+          <ProtectedRoute>
+            <PageTransition><SavingsGoals /></PageTransition>
           </ProtectedRoute>
         } />
         <Route path="*" element={<Navigate to="/login" replace />} />

@@ -10,7 +10,8 @@ import {
   LogOut,
   Menu,
   X,
-  Wallet
+  Wallet,
+  Target
 } from 'lucide-react'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 
@@ -20,6 +21,7 @@ const links = [
   { to: '/categories', label: 'Categorías', icon: Tag, color: '#10b981' },
   { to: '/stats', label: 'Estadísticas', icon: BarChart2, color: '#f59e0b' },
   { to: '/budgets', label: 'Presupuestos', icon: Wallet, color: '#f59e0b' },
+  { to: '/savings', label: 'Metas de ahorro', icon: Target, color: '#a78bfa' },
 ]
 
 
