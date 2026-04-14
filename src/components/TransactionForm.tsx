@@ -8,6 +8,17 @@ type Props = {
   onCancel: () => void
 }
 
+const inputStyle = {
+  width: '100%',
+  background: '#0f0f13',
+  border: '1px solid #2a2a3a',
+  borderRadius: '8px',
+  padding: '8px 12px',
+  fontSize: '13px',
+  color: '#e2e2f0',
+  outline: 'none',
+}
+
 export default function TransactionForm({ categories, onCreated, onCancel }: Props) {
   const [amount, setAmount] = useState('')
   const [description, setDescription] = useState('')
@@ -37,73 +48,78 @@ export default function TransactionForm({ categories, onCreated, onCancel }: Pro
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-6">
-      <h3 className="text-sm font-medium text-gray-700 mb-4">Nueva transacción</h3>
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+    <div className="rounded-xl p-6" style={{ background: '#16161f', border: '1px solid #2a2a3a' }}>
+      <h3 className="text-sm font-medium mb-5" style={{ color: '#9999b3' }}>Nueva transacción</h3>
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="text-xs text-gray-500 mb-1 block">Descripción</label>
+          <label className="text-xs mb-1 block" style={{ color: '#6b6b8a' }}>Descripción</label>
           <input
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            style={inputStyle}
             placeholder="Ej: Domicilio almuerzo"
             required
           />
         </div>
         <div>
-          <label className="text-xs text-gray-500 mb-1 block">Monto (COP)</label>
+          <label className="text-xs mb-1 block" style={{ color: '#6b6b8a' }}>Monto (COP)</label>
           <input
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            style={inputStyle}
             placeholder="32000"
             required
             min="0"
           />
         </div>
         <div>
-          <label className="text-xs text-gray-500 mb-1 block">Tipo</label>
+          <label className="text-xs mb-1 block" style={{ color: '#6b6b8a' }}>Tipo</label>
           <select
             value={type}
-            onChange={(e) => setType(e.target.value as 'income' | 'expense')}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            onChange={(e) => {
+              setType(e.target.value as 'income' | 'expense')
+              setCategoryId('')
+            }}
+            style={inputStyle}
           >
             <option value="expense">Gasto</option>
             <option value="income">Ingreso</option>
           </select>
         </div>
         <div>
-          <label className="text-xs text-gray-500 mb-1 block">Categoría</label>
+          <label className="text-xs mb-1 block" style={{ color: '#6b6b8a' }}>Categoría</label>
           <select
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            style={inputStyle}
           >
             <option value="">Sin categoría</option>
             {categories
               .filter((cat) => cat.type === type)
               .map((cat) => (
-              <option key={cat.id} value={cat.id}>{cat.name}</option>
-            ))}
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
+              ))}
           </select>
         </div>
 
-        {error && <p className="col-span-2 text-red-500 text-xs">{error}</p>}
+        {error && <p className="col-span-2 text-xs" style={{ color: '#f87171' }}>{error}</p>}
 
-        <div className="col-span-2 flex gap-3 justify-end">
+        <div className="col-span-1 md:col-span-2 flex gap-3 justify-end">
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 text-sm text-gray-500 hover:text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 text-sm rounded-lg transition-colors"
+            style={{ color: '#6b6b8a', border: '1px solid #2a2a3a', background: 'transparent' }}
           >
             Cancelar
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
+            className="px-4 py-2 text-sm rounded-lg font-medium transition-colors"
+            style={{ background: '#7c3aed', color: '#fff', border: 'none', opacity: loading ? 0.6 : 1 }}
           >
             {loading ? 'Guardando...' : 'Guardar'}
           </button>

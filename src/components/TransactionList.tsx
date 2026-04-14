@@ -8,17 +8,21 @@ type Props = {
 }
 
 const formatCOP = (value: number) =>
-  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(value)
+  new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0
+  }).format(value)
 
 const formatDate = (dateStr: string) =>
-  new Date(dateStr).toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' })
+  new Date(dateStr).toLocaleDateString('es-CO', {
+    day: '2-digit',
+    month: 'short'
+  })
 
 export default function TransactionList({ transactions, categories, onDeleted }: Props) {
-  const getCategoryName = (id: number | null) =>
-    categories.find((c) => c.id === id)?.name || 'Sin categoría'
-
-  const getCategoryColor = (id: number | null) =>
-    categories.find((c) => c.id === id)?.color || '#e5e7eb'
+  const getCategory = (id: number | null) =>
+    categories.find((c) => c.id === id)
 
   const handleDelete = async (id: number) => {
     if (!confirm('¿Seguro que quieres eliminar esta transacción?')) return
@@ -27,36 +31,49 @@ export default function TransactionList({ transactions, categories, onDeleted }:
   }
 
   if (transactions.length === 0) {
-    return <p className="text-sm text-gray-400 text-center py-8">No hay transacciones aún</p>
+    return (
+      <p className="text-sm text-center py-10" style={{ color: '#6b6b8a' }}>
+        No hay transacciones aún
+      </p>
+    )
   }
 
   return (
-    <div className="divide-y divide-gray-100">
-      {transactions.map((tx) => (
-        <div key={tx.id} className="flex items-center justify-between py-3">
-          <div className="flex items-center gap-3">
-            <div
-              className="w-2 h-2 rounded-full flex-shrink-0"
-              style={{ backgroundColor: getCategoryColor(tx.category_id) }}
-            />
-            <div>
-              <p className="text-sm text-gray-800">{tx.description}</p>
-              <p className="text-xs text-gray-400">{getCategoryName(tx.category_id)} · {formatDate(tx.date)}</p>
+    <div style={{ borderTop: '1px solid #1e1e2e' }}>
+      {transactions.map((tx) => {
+        const cat = getCategory(tx.category_id)
+        return (
+          <div key={tx.id}
+            className="flex items-center justify-between py-3"
+            style={{ borderBottom: '1px solid #1e1e2e' }}>
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full flex-shrink-0"
+                style={{ background: cat?.color || '#2a2a3a' }} />
+              <div>
+                <p className="text-sm" style={{ color: '#c4c4d8' }}>{tx.description}</p>
+                <p className="text-xs" style={{ color: '#6b6b8a' }}>
+                  {cat?.name || 'Sin categoría'} · {formatDate(tx.date)}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-medium"
+                style={{ color: tx.type === 'income' ? '#34d399' : '#f87171' }}>
+                {tx.type === 'income' ? '+' : '-'}{formatCOP(tx.amount)}
+              </span>
+              <button
+                onClick={() => handleDelete(tx.id)}
+                className="text-xs transition-colors"
+                style={{ color: '#2a2a3a' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#f87171'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#2a2a3a'}
+              >
+                Eliminar
+              </button>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <span className={`text-sm font-medium ${tx.type === 'income' ? 'text-green-600' : 'text-red-500'}`}>
-              {tx.type === 'income' ? '+' : '-'}{formatCOP(tx.amount)}
-            </span>
-            <button
-              onClick={() => handleDelete(tx.id)}
-              className="text-xs text-gray-300 hover:text-red-400 transition-colors"
-            >
-              Eliminar
-            </button>
-          </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

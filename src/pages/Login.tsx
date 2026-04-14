@@ -3,6 +3,17 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { authService } from '../services/auth.service'
 
+const inputStyle = {
+  width: '100%',
+  background: '#1a1a24',
+  border: '1px solid #2a2a3a',
+  borderRadius: '8px',
+  padding: '10px 14px',
+  fontSize: '14px',
+  color: '#e2e2f0',
+  outline: 'none',
+}
+
 export default function Login() {
   const [isRegister, setIsRegister] = useState(false)
   const [email, setEmail] = useState('')
@@ -31,72 +42,96 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 w-full max-w-md p-8">
-        <h1 className="text-2xl font-medium text-gray-900 mb-1">
+    <div className="min-h-screen flex items-center justify-center p-4"
+      style={{ background: '#0f0f13' }}>
+      <div className="w-full max-w-md rounded-2xl p-8"
+        style={{ background: '#16161f', border: '1px solid #2a2a3a' }}>
+
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center"
+            style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)' }}>
+            <div className="w-3 h-3 rounded-full bg-white" />
+          </div>
+          <span className="text-white font-medium text-lg">Gastly</span>
+        </div>
+
+        <h1 className="text-2xl font-medium mb-1" style={{ color: '#e2e2f0' }}>
           {isRegister ? 'Crear cuenta' : 'Iniciar sesión'}
         </h1>
-        <p className="text-gray-500 text-sm mb-8">
-          {isRegister ? 'Empezá a gestionar tus gastos' : 'Bienvenido de vuelta'}
+        <p className="text-sm mb-8" style={{ color: '#6b6b8a' }}>
+          {isRegister ? 'Empieza a gestionar tus gastos' : 'Bienvenido de vuelta'}
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {isRegister && (
             <div>
-              <label className="text-sm text-gray-600 mb-1 block">Nombre completo</label>
+              <label className="text-xs mb-1.5 block" style={{ color: '#6b6b8a' }}>
+                Nombre completo
+              </label>
               <input
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                style={inputStyle}
                 placeholder="Tu nombre"
                 required
               />
             </div>
           )}
           <div>
-            <label className="text-sm text-gray-600 mb-1 block">Email</label>
+            <label className="text-xs mb-1.5 block" style={{ color: '#6b6b8a' }}>
+              Email
+            </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              style={inputStyle}
               placeholder="tu@email.com"
               required
             />
           </div>
           <div>
-            <label className="text-sm text-gray-600 mb-1 block">Contraseña</label>
+            <label className="text-xs mb-1.5 block" style={{ color: '#6b6b8a' }}>
+              Contraseña
+            </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              style={inputStyle}
               placeholder="••••••••"
               required
             />
           </div>
 
           {error && (
-            <p className="text-red-500 text-sm">{error}</p>
+            <p className="text-xs" style={{ color: '#f87171' }}>{error}</p>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-600 text-white rounded-lg py-2.5 text-sm font-medium hover:bg-indigo-700 transition-colors disabled:opacity-50"
+            className="w-full py-2.5 rounded-lg text-sm font-medium mt-2 transition-opacity"
+            style={{
+              background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
+              color: '#fff',
+              border: 'none',
+              opacity: loading ? 0.6 : 1
+            }}
           >
             {loading ? 'Cargando...' : isRegister ? 'Crear cuenta' : 'Entrar'}
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm mt-6" style={{ color: '#6b6b8a' }}>
           {isRegister ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?'}{' '}
           <button
             onClick={() => setIsRegister(!isRegister)}
-            className="text-indigo-600 font-medium hover:underline"
+            className="font-medium hover:underline"
+            style={{ color: '#a78bfa', background: 'none', border: 'none', cursor: 'pointer' }}
           >
-            {isRegister ? 'Inicia sesión' : 'Registrarse'}
+            {isRegister ? 'Inicia sesión' : 'Regístrate'}
           </button>
         </p>
       </div>

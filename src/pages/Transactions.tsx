@@ -42,9 +42,9 @@ export default function Transactions() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-gray-50">
+      <div className="flex flex-col md:flex-row min-h-screen" style={{ background: '#0f0f13' }}>
         <Navbar />
-        <main className="flex-1 p-8 flex items-center justify-center">
+        <main className="flex-1 p-4 md:p-8">
           <p className="text-gray-400">Cargando...</p>
         </main>
       </div>
@@ -52,9 +52,9 @@ export default function Transactions() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex flex-col md:flex-row min-h-screen" style={{ background: '#0f0f13' }}>
       <Navbar />
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-4 md:p-8">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-xl font-medium text-gray-900">Transacciones</h2>
           <button
