@@ -6,6 +6,7 @@ import TransactionForm from '../components/TransactionForm'
 import { transactionService } from '../services/transaction.service'
 import { categoryService } from '../services/category.service'
 import type { Transaction, Category, Summary } from '../types/index'
+import { motion } from 'framer-motion'
 
 const formatCOP = (value: number) =>
   new Intl.NumberFormat('es-CO', {
@@ -76,24 +77,9 @@ export default function Dashboard() {
 
         {summary && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <SummaryCard
-              label="Balance"
-              value={summary.balance}
-              type="balance"
-              sub="Actualizado ahora"
-            />
-            <SummaryCard
-              label="Ingresos del mes"
-              value={summary.total_income}
-              type="income"
-              sub={`${transactions.filter(t => t.type === 'income').length} transacciones`}
-            />
-            <SummaryCard
-              label="Gastos del mes"
-              value={summary.total_expenses}
-              type="expense"
-              sub={`${transactions.filter(t => t.type === 'expense').length} transacciones`}
-            />
+            <SummaryCard label="Balance" value={summary.balance} type="balance" sub="Actualizado ahora" delay={0} />
+            <SummaryCard label="Ingresos del mes" value={summary.total_income} type="income" sub={`${transactions.filter(t => t.type === 'income').length} transacciones`} delay={0.1} />
+            <SummaryCard label="Gastos del mes" value={summary.total_expenses} type="expense" sub={`${transactions.filter(t => t.type === 'expense').length} transacciones`} delay={0.2} />
           </div>
         )}
 
@@ -131,6 +117,13 @@ export default function Dashboard() {
                       </div>
                       <div className="h-1.5 rounded-full overflow-hidden"
                         style={{ background: '#1e1e2e' }}>
+                        <motion.div
+                          className="h-full rounded-full"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${pct}%` }}
+                          transition={{ duration: 0.8, delay: i * 0.1, ease: 'easeOut' }}
+                          style={{ background: color }}
+                        />
                         <div
                           className="h-full rounded-full"
                           style={{ width: `${pct}%`, background: color }}

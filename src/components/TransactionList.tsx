@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import type { Transaction, Category } from '../types/index'
 import { transactionService } from '../services/transaction.service'
 
@@ -32,20 +33,30 @@ export default function TransactionList({ transactions, categories, onDeleted }:
 
   if (transactions.length === 0) {
     return (
-      <p className="text-sm text-center py-10" style={{ color: '#6b6b8a' }}>
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-sm text-center py-10"
+        style={{ color: '#6b6b8a' }}
+      >
         No hay transacciones aún
-      </p>
+      </motion.p>
     )
   }
 
   return (
     <div style={{ borderTop: '1px solid #1e1e2e' }}>
-      {transactions.map((tx) => {
+      {transactions.map((tx, index) => {
         const cat = getCategory(tx.category_id)
         return (
-          <div key={tx.id}
+          <motion.div
+            key={tx.id}
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.05, ease: 'easeOut' }}
             className="flex items-center justify-between py-3"
-            style={{ borderBottom: '1px solid #1e1e2e' }}>
+            style={{ borderBottom: '1px solid #1e1e2e' }}
+          >
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full flex-shrink-0"
                 style={{ background: cat?.color || '#2a2a3a' }} />
@@ -71,7 +82,7 @@ export default function TransactionList({ transactions, categories, onDeleted }:
                 Eliminar
               </button>
             </div>
-          </div>
+          </motion.div>
         )
       })}
     </div>

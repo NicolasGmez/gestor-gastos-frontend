@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import type { Category, TransactionCreate } from '../types/index'
 import { transactionService } from '../services/transaction.service'
 
@@ -48,7 +49,14 @@ export default function TransactionForm({ categories, onCreated, onCancel }: Pro
   }
 
   return (
-    <div className="rounded-xl p-6" style={{ background: '#16161f', border: '1px solid #2a2a3a' }}>
+    <motion.div
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
+      className="rounded-xl p-6"
+      style={{ background: '#16161f', border: '1px solid #2a2a3a' }}
+    >
       <h3 className="text-sm font-medium mb-5" style={{ color: '#9999b3' }}>Nueva transacción</h3>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
@@ -125,6 +133,6 @@ export default function TransactionForm({ categories, onCreated, onCancel }: Pro
           </button>
         </div>
       </form>
-    </div>
+    </motion.div>
   )
 }
