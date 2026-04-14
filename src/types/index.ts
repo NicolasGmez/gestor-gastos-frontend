@@ -48,3 +48,21 @@ export interface Summary {
     total: number
   }[]
 }
+export interface Budget {
+  id: number
+  amount: number
+  category_id: number
+  category_name: string
+  category_color: string
+  spent: number
+  percentage: number
+  month: number
+  year: number
+}
+
+export interface BudgetCreate {
+  amount: number
+  category_id: number
+  month: number
+  year: number
+}

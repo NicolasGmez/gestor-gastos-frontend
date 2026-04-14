@@ -9,7 +9,8 @@ import {
   BarChart2,
   LogOut,
   Menu,
-  X
+  X,
+  Wallet
 } from 'lucide-react'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 
@@ -18,7 +19,9 @@ const links = [
   { to: '/transactions', label: 'Transacciones', icon: ArrowLeftRight, color: '#0ea5e9' },
   { to: '/categories', label: 'Categorías', icon: Tag, color: '#10b981' },
   { to: '/stats', label: 'Estadísticas', icon: BarChart2, color: '#f59e0b' },
+  { to: '/budgets', label: 'Presupuestos', icon: Wallet, color: '#f59e0b' },
 ]
+
 
 function SidebarContent({ onClose }: { onClose?: () => void }) {
   const { user, logout } = useAuth()
