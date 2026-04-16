@@ -5,12 +5,12 @@ import { authService } from '../services/auth.service'
 
 const inputStyle = {
   width: '100%',
-  background: '#1a1a24',
-  border: '1px solid #2a2a3a',
+  background: 'var(--bg-elevated)',
+  border: '1px solid var(--border)',
   borderRadius: '8px',
   padding: '10px 14px',
   fontSize: '14px',
-  color: '#e2e2f0',
+  color: 'var(--text-primary)',
   outline: 'none',
 }
 
@@ -43,9 +43,9 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4"
-      style={{ background: '#0f0f13' }}>
+      style={{ background: 'var(--bg-base)' }}>
       <div className="w-full max-w-md rounded-2xl p-8"
-        style={{ background: '#16161f', border: '1px solid #2a2a3a' }}>
+        style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}>
 
         <div className="flex items-center gap-3 mb-8">
           <div className="w-9 h-9 rounded-xl flex items-center justify-center"
@@ -55,17 +55,17 @@ export default function Login() {
           <span className="text-white font-medium text-lg">Gastly</span>
         </div>
 
-        <h1 className="text-2xl font-medium mb-1" style={{ color: '#e2e2f0' }}>
+        <h1 className="text-2xl font-medium mb-1" style={{ color: 'var(--text-muted)' }}>
           {isRegister ? 'Crear cuenta' : 'Iniciar sesión'}
         </h1>
-        <p className="text-sm mb-8" style={{ color: '#6b6b8a' }}>
+        <p className="text-sm mb-8" style={{ color: 'var(--text-muted)' }}>
           {isRegister ? 'Empieza a gestionar tus gastos' : 'Bienvenido de vuelta'}
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {isRegister && (
             <div>
-              <label className="text-xs mb-1.5 block" style={{ color: '#6b6b8a' }}>
+              <label className="text-xs mb-1.5 block" style={{ color: 'var(--text-muted)' }}>
                 Nombre completo
               </label>
               <input
@@ -79,7 +79,7 @@ export default function Login() {
             </div>
           )}
           <div>
-            <label className="text-xs mb-1.5 block" style={{ color: '#6b6b8a' }}>
+            <label className="text-xs mb-1.5 block" style={{ color: 'var(--text-muted)' }}>
               Email
             </label>
             <input
@@ -92,7 +92,7 @@ export default function Login() {
             />
           </div>
           <div>
-            <label className="text-xs mb-1.5 block" style={{ color: '#6b6b8a' }}>
+            <label className="text-xs mb-1.5 block" style={{ color: 'var(--text-muted)' }}>
               Contraseña
             </label>
             <input
@@ -106,7 +106,7 @@ export default function Login() {
           </div>
 
           {error && (
-            <p className="text-xs" style={{ color: '#f87171' }}>{error}</p>
+            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{error}</p>
           )}
 
           <button
@@ -124,7 +124,7 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="text-center text-sm mt-6" style={{ color: '#6b6b8a' }}>
+        <p className="text-center text-sm mt-6" style={{ color: 'var(--text-muted)' }}>
           {isRegister ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?'}{' '}
           <button
             onClick={() => setIsRegister(!isRegister)}

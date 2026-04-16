@@ -41,17 +41,17 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="flex flex-col md:flex-row min-h-screen" style={{ background: '#0f0f13' }}>
+      <div className="flex flex-col md:flex-row min-h-screen" style={{ background: 'var(--bg-base)' }}>
         <Navbar />
         <main className="flex-1 p-4 md:p-8 flex items-center justify-center">
-          <p style={{ color: '#6b6b8a' }}>Cargando...</p>
+          <p style={{ color: 'var(--text-muted)' }}>Cargando...</p>
         </main>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen" style={{ background: '#0f0f13' }}>
+    <div className="flex flex-col md:flex-row min-h-screen" style={{ background: 'var(--bg-base)' }}>
       <Navbar />
       <main className="flex-1 p-4 md:p-8">
         <div className="flex items-center justify-between mb-8">
@@ -84,8 +84,8 @@ export default function Dashboard() {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-xl p-6" style={{ background: '#16161f', border: '1px solid #2a2a3a' }}>
-            <h3 className="text-sm font-medium mb-4" style={{ color: '#9999b3' }}>
+          <div className="rounded-xl p-6" style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}>
+            <h3 className="text-sm font-medium mb-4" style={{ color: 'var(--text-secondary)' }}>
               Últimas transacciones
             </h3>
             <TransactionList
@@ -95,12 +95,12 @@ export default function Dashboard() {
             />
           </div>
 
-          <div className="rounded-xl p-6" style={{ background: '#16161f', border: '1px solid #2a2a3a' }}>
-            <h3 className="text-sm font-medium mb-5" style={{ color: '#9999b3' }}>
+          <div className="rounded-xl p-6" style={{ background: 'var(--bg-surface)', border: '1px solid var(--border)' }}>
+            <h3 className="text-sm font-medium mb-5" style={{ color: 'var(--text-secondary)' }}>
               Gastos por categoría
             </h3>
             {!summary || summary.by_category.length === 0 ? (
-              <p className="text-sm text-center py-8" style={{ color: '#6b6b8a' }}>
+              <p className="text-sm text-center py-8" style={{ color: 'var(--text-muted)' }}>
                 No hay gastos registrados aún
               </p>
             ) : (
@@ -112,11 +112,11 @@ export default function Dashboard() {
                   return (
                     <div key={i} className="flex flex-col gap-1.5">
                       <div className="flex justify-between text-xs">
-                        <span style={{ color: '#9999b3' }}>{item.name}</span>
-                        <span style={{ color }}>{formatCOP(item.total)}</span>
+                        <span style={{ color: 'var(--text-muted)' }}>{item.name}</span>
+                        <span style={{ color: 'var(--text-muted)' }}>{formatCOP(item.total)}</span>
                       </div>
                       <div className="h-1.5 rounded-full overflow-hidden"
-                        style={{ background: '#1e1e2e' }}>
+                        style={{ background: 'var(--bg-elevated)' }}>
                         <motion.div
                           className="h-full rounded-full"
                           initial={{ width: 0 }}

@@ -25,14 +25,27 @@ const formatCOP = (value: number) =>
 export default function SummaryCard({ label, value, type, sub, delay = 0 }: SummaryCardProps) {
   const { color, prefix } = config[type]
   const animatedValue = useCountUp(Math.abs(value), 900)
+  const glowColors = {
+    balance: 'rgba(167, 139, 250, 0.15)',
+    income: 'rgba(52, 211, 153, 0.15)',
+    expense: 'rgba(248, 113, 113, 0.15)',
+  }
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay, ease: 'easeOut' }}
-      className="rounded-xl p-5 flex flex-col gap-2"
-      style={{ background: '#16161f', border: '1px solid #2a2a3a' }}
+      whileHover={{
+        scale: 1.02,
+        boxShadow: `0 0 24px ${glowColors[type]}`,
+      }}
+      className="rounded-xl p-5 flex flex-col gap-2 cursor-default"
+      style={{
+        background: 'var(--bg-surface)',
+        border: '1px solid var(--border)',
+        transition: 'box-shadow 0.3s ease'
+      }}
     >
       <p className="text-xs uppercase tracking-wide" style={{ color: '#6b6b8a' }}>{label}</p>
       <p className="text-2xl font-medium" style={{ color }}>
