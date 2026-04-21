@@ -47,4 +47,4 @@ npm run dev
 
 ## Environment Variables
 
-### Backend (.env)
+Copy `.env.example` and fill in your values.
