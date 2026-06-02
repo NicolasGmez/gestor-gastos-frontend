@@ -32,6 +32,10 @@ export interface TransactionCreate {
   date?: string
 }
 
+export interface TransactionBulkCreate {
+  transactions: TransactionCreate[]
+}
+
 export interface CategoryCreate {
   name: string
   color: string

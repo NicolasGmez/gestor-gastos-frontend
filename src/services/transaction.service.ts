@@ -1,5 +1,5 @@
 import api from './api'
-import type { Transaction, TransactionCreate, Summary } from '../types/index'
+import type { Transaction, TransactionCreate, TransactionBulkCreate, Summary } from '../types/index'
 
 export const transactionService = {
   async getAll(): Promise<Transaction[]> {
@@ -11,6 +11,11 @@ export const transactionService = {
     const { data } = await api.post('/transactions/', transaction)
     return data
   },
+
+  async createBulk(payload: TransactionBulkCreate): Promise<Transaction[]> {
+    const { data } = await api.post('/transactions/bulk', payload)
+    return data 
+  },  
 
   async delete(id: number): Promise<void> {
     await api.delete(`/transactions/${id}`)
